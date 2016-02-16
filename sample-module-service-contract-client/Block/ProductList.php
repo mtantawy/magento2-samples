@@ -116,6 +116,6 @@ class ProductList extends Template
      */
     private function buildSearchCriteria(array $filters)
     {
-        return $this->searchCriteriaBuilder->addFilter($filters)->create();
+        return $this->searchCriteriaBuilder->addFilters($filters)->create();
     }
 }
