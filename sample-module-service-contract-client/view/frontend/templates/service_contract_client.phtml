@@ -12,14 +12,16 @@
 $products = $block->getProducts();
 /** @var \Magento\Catalog\Api\Data\ProductTypeInterface[] $productTypes */
 $productTypes = $block->getProductTypes();
+$productTypesArr = [];
 ?>
-<div class="toolbar toolbar-products">
+<div class="toolbar toolbar-products" style="position:relative;">
     <form method="get">
         <div class="toolbar-sorter sorter">
             <label class="sorter-label" for="filter"><?php echo __('Type') ?></label>
             <select id="filter" name="type" class="sorter-options">
                 <option value="">All</option>
                 <?php foreach ($productTypes as $id => $type) : ?>
+                    <?php $productTypesArr[$type->getName()] = $type->getLabel(); ?>
                     <option value="<?php echo $type->getName() ?>"
                             <?php if ($block->isTypeActive($type)) : ?>selected="selected"<?php endif ?>
                         ><?php echo $block->escapeHtml($type->getLabel()) ?></option>
@@ -43,7 +45,7 @@ $productTypes = $block->getProductTypes();
             <tr>
                 <td><?php echo $block->escapeHtml($product->getSku()) ?></td>
                 <td><?php echo $block->escapeHtml($product->getName()) ?></td>
-                <td><?php echo $block->escapeHtml($productTypes[$product->getTypeId()]['label']) ?></td>
+                <td><?php echo $block->escapeHtml($productTypesArr[$product->getTypeId()]) ?></td>
             </tr>
         <?php endforeach ?>
         </tbody>
